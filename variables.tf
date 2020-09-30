@@ -24,6 +24,12 @@ variable "aws_assume_role_arn" {
 # Variables: TF-MOD-AWS-S3-LOG-STORAGE
 # -----------------------------------------------------------------------------
 
+// Conditional Triggers
+variable "enabled" {
+  description = "(Optional) - A Switch that decides whether to create the module. Default is false"
+  type        = bool
+  default     = false
+}
 
 variable "acl" {
   type        = string
