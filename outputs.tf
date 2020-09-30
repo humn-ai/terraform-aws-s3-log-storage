@@ -17,8 +17,3 @@ output "prefix" {
   value       = var.lifecycle_prefix
   description = "Prefix configured for lifecycle rules"
 }
-
-output "enabled" {
-  value       = module.this.enabled
-  description = "Is module enabled"
-}
