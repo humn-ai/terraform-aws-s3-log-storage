@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "default" {
-  count         = module.this.enabled ? 1 : 0
-  bucket        = module.this.id
+  count         = module.label.enabled ? 1 : 0
+  bucket        = module.label.id
   acl           = var.acl
   force_destroy = var.force_destroy
   policy        = var.policy
@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "default" {
   }
 
   lifecycle_rule {
-    id                                     = module.this.id
+    id                                     = module.label.id
     enabled                                = var.lifecycle_rule_enabled
     prefix                                 = var.lifecycle_prefix
     tags                                   = var.lifecycle_tags
@@ -53,7 +53,7 @@ resource "aws_s3_bucket" "default" {
     for_each = var.access_log_bucket_name != "" ? [1] : []
     content {
       target_bucket = var.access_log_bucket_name
-      target_prefix = "logs/${module.this.id}/"
+      target_prefix = "logs/${module.label.id}/"
     }
   }
 
@@ -68,14 +68,14 @@ resource "aws_s3_bucket" "default" {
     }
   }
 
-  tags = module.this.tags
+  tags = module.label.tags
 }
 
 # Refer to the terraform documentation on s3_bucket_public_access_block at
 # https://www.terraform.io/docs/providers/aws/r/s3_bucket_public_access_block.html
 # for the nuances of the blocking options
 resource "aws_s3_bucket_public_access_block" "default" {
-  count  = module.this.enabled ? 1 : 0
+  count  = module.label.enabled ? 1 : 0
   bucket = join("", aws_s3_bucket.default.*.id)
 
   block_public_acls       = var.block_public_acls
