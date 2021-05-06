@@ -24,12 +24,6 @@ variable "aws_assume_role_arn" {
 # Variables: TF-MOD-AWS-S3-LOG-STORAGE
 # -----------------------------------------------------------------------------
 
-// Conditional Triggers
-variable "enabled" {
-  description = "(Optional) - A Switch that decides whether to create the module. Default is false"
-  type        = bool
-  default     = false
-}
 
 variable "acl" {
   type        = string
@@ -155,45 +149,4 @@ variable "access_log_bucket_name" {
   type        = string
   default     = ""
   description = "Name of the S3 bucket where s3 access log will be sent to"
-}
-
-
-# -----------------------------------------------------------------------------
-# Variables: TF-MOD-LABEL
-# -----------------------------------------------------------------------------
-
-variable "namespace" {
-  type        = string
-  default     = ""
-  description = "(Optional) - Namespace, which could be your abbreviated product team, e.g. 'rci', 'mi', 'hp', or 'core'"
-}
-
-variable "environment" {
-  type        = string
-  default     = ""
-  description = "(Optional) - Environment, e.g. 'dev', 'qa', 'staging', 'prod'"
-}
-
-variable "name" {
-  type        = string
-  default     = ""
-  description = "(Optional) - Solution name, e.g. 'vault', 'consul', 'keycloak', 'k8s', or 'baseline'"
-}
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "(Optional) - Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`"
-}
-
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = "(Optional) - Additional attributes (e.g. `1`)"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = "(Optional) - Additional tags"
 }
